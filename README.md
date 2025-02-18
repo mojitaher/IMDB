@@ -1,2 +1,0 @@
-# IMDB
-final project IMDB
