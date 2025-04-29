@@ -7,67 +7,36 @@ import Tab from "../components/Tab";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import SkeletonLoader from "../components/skeletonLoader";
-
-// import { useLoaderData } from "react-router-dom";
-// export async function loader({ param }) {
-//   const movies = getMovies(param);
-//   return { movies };
-// }
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function Home() {
-  //   const { movies } = useLoaderData();
   const [page, setPage] = useState(1);
   const [movieList, setMovieList] = useState([]);
   const [movie, setMovie] = useState([]);
   const [loader, setLoader] = useState(false);
-  const [scroll, setScroll] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
   const [genres, setGenres] = useState([]);
 
-  const handleScroll = () => {
-    if (
-      document.body.scrollHeight - 300 <
-      window.scrollY + window.innerHeight
-    ) {
-      setScroll(true);
-    }
-  };
-  function debounce(func, delay) {
-    let timeoutId;
-    return function (...args) {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
-      timeoutId = setTimeout(() => {
-        func(...args);
-      }, delay);
-    };
-  }
-
-  window.addEventListener("scroll", debounce(handleScroll, 500));
-  window.scrollTo({ top: 0 });
-
-  useEffect(() => {
-    if (scroll) {
-      setPage((nextPage) => page <= 21 && nextPage + 1);
-      setScroll(false);
-    }
-  }, [scroll]);
-  async function getMovies() {
+  async function getAllMovies() {
     setLoader(true);
+
     const res = await axios.get(
       `https://moviesapi.codingfront.dev/api/v1/movies?page=${page}`
     );
-    return res.data.data.map(formatMovie);
+    const formatMovies = res.data.data.map(formatMovie);
+    const totalPages = res.data.metadata.page_count;
+    setMovie((movie) => [...movie, ...formatMovies]);
+    if (page >= totalPages) {
+      setHasMore(false);
+    } else {
+      setPage((page) => page + 1);
+    }
+    setLoader(false);
   }
   useEffect(() => {
-    getMovies()
-      .then((movies) => {
-        setMovie(movies);
-        setMovieList(movies);
-      })
-      .finally(() => {
-        setLoader(false);
-      });
+    getAllMovies();
+  }, []);
+  useEffect(() => {
     getGenres().then((genres) => {
       genres = genres.map((genre) => ({
         id: genre.id,
@@ -82,16 +51,13 @@ export default function Home() {
         isSelected: true,
         movies_count: null,
       });
-
       setGenres(genres);
-    });
-  }, [page]);
-  useEffect(() => {
-    getMovieByName(movieList).then((movies) => {
-      setMovieList(movies);
     });
   }, []);
   const handelSubmit = (event, movieSearch) => {
+    getMovieByName(movieSearch).then((movies) => {
+      setMovieList(movies);
+    });
     event.preventDefault();
     const movieResult =
       movieSearch != ""
@@ -103,7 +69,7 @@ export default function Home() {
           )
         : movieList;
 
-    return setMovie(movieResult);
+    return setMovieList(movieResult);
   };
 
   function onGenreClick(genre) {
@@ -157,20 +123,41 @@ export default function Home() {
             }}
           />
         ))}
-
       <div>
         <h3 className=" mx-32 text-gray-400 font-normal text-3xl leading-10 font-poppin flex items-baseline gap-1">
           ALL <span className="text-base leading-6">({movie.length})</span>
         </h3>
-        <ul className="mx-32 inline-flex flex-wrap gap-x-6 gap-y-5">
-          {movie.map((movies) => (
-            <div className="max-w-72 " key={movies.id}>
-              <Link to={`/Detail/${movies.id}`}>
-                {!loader ? <MovieCard movie={movies} /> : <SkeletonLoader />}
-              </Link>
-            </div>
-          ))}
-        </ul>
+        {movieList.length > 0 ? (
+          <ul className="mx-32 inline-flex flex-wrap gap-x-6 gap-y-5">
+            {movieList.map((movies) => (
+              <div className="max-w-72 " key={movies.id}>
+                <Link to={`/Detail/${movies.id}`}>
+                  {!loader ? <MovieCard movie={movies} /> : <SkeletonLoader />}
+                </Link>
+              </div>
+            ))}
+          </ul>
+        ) : (
+          <InfiniteScroll
+            dataLength={movie.length}
+            next={getAllMovies}
+            hasMore={hasMore}
+          >
+            <ul className="mx-32 inline-flex flex-wrap gap-x-6 gap-y-5">
+              {movie.map((movies) => (
+                <div className="max-w-72 " key={movies.id}>
+                  <Link to={`/Detail/${movies.id}`}>
+                    {!loader ? (
+                      <MovieCard movie={movies} />
+                    ) : (
+                      <SkeletonLoader />
+                    )}
+                  </Link>
+                </div>
+              ))}
+            </ul>
+          </InfiniteScroll>
+        )}
       </div>
     </>
   );

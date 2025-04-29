@@ -1,5 +1,4 @@
 import { useState } from "react";
-import MovieCard from "./MovieCard";
 import { MagnifyIcon } from "./MagnifyIcon";
 
 export default function Searchbar({ handelSubmit }) {
@@ -29,7 +28,7 @@ export default function Searchbar({ handelSubmit }) {
             value={search}
             type="search"
             id="default-search"
-            className="w-full p-5 text-sm text-gray-900 border-0 bg-transparent focus:border-0 focus:ring-0 "
+            className="w-full p-5 text-sm text-white border-0 bg-transparent focus:border-0 focus:ring-0 "
             placeholder="Search Movies or TV Shows"
             onChange={(e) => {
               setSearch(e.target.value);

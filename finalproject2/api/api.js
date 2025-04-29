@@ -9,15 +9,22 @@ export const formatMovie = (movie) => {
     genres: genres,
   };
 };
-export async function getMovieByName(name, page) {
+
+export async function getMovieByName(name) {
+  if (!name) {
+    return;
+  }
   const res = await axios.get(
-    `https://moviesapi.codingfront.dev/api/v1/movies?q=${name}&page=${page}`
+    `https://moviesapi.codingfront.dev/api/v1/movies?q=${name}`
   );
+  if (res.data.data.length === 0) {
+    return;
+  }
   return res.data.data.map(formatMovie);
 }
-export async function getGenres() {
+export async function getGenres(genre_name) {
   const res = await axios.get(
-    "https://moviesapi.codingfront.dev/api/v1/genres"
+    `https://moviesapi.codingfront.dev/api/v1/genres/${genre_name}/movies`
   );
   return res.data;
 }
