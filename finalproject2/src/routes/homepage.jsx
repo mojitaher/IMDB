@@ -7,7 +7,8 @@ import Tab from "../components/Tab";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import SkeletonLoader from "../components/skeletonLoader";
-import InfiniteScroll from "react-infinite-scroll-component";
+import InfinityScroll from "../components/useInfinityScroll";
+import { Button } from "flowbite-react";
 
 export default function Home() {
   const [page, setPage] = useState(1);
@@ -16,7 +17,9 @@ export default function Home() {
   const [loader, setLoader] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [genres, setGenres] = useState([]);
-
+  function handleBack() {
+    setMovieList([]);
+  }
   async function getAllMovies() {
     setLoader(true);
 
@@ -128,23 +131,10 @@ export default function Home() {
           ALL <span className="text-base leading-6">({movie.length})</span>
         </h3>
         {movieList.length > 0 ? (
-          <ul className="mx-32 inline-flex flex-wrap gap-x-6 gap-y-5">
-            {movieList.map((movies) => (
-              <div className="max-w-72 " key={movies.id}>
-                <Link to={`/Detail/${movies.id}`}>
-                  {!loader ? <MovieCard movie={movies} /> : <SkeletonLoader />}
-                </Link>
-              </div>
-            ))}
-          </ul>
-        ) : (
-          <InfiniteScroll
-            dataLength={movie.length}
-            next={getAllMovies}
-            hasMore={hasMore}
-          >
+          <>
+            <Button onClick={handleBack}>Back</Button>;
             <ul className="mx-32 inline-flex flex-wrap gap-x-6 gap-y-5">
-              {movie.map((movies) => (
+              {movieList.map((movies) => (
                 <div className="max-w-72 " key={movies.id}>
                   <Link to={`/Detail/${movies.id}`}>
                     {!loader ? (
@@ -156,7 +146,9 @@ export default function Home() {
                 </div>
               ))}
             </ul>
-          </InfiniteScroll>
+          </>
+        ) : (
+          InfinityScroll(movie, getAllMovies, hasMore, loader, MovieCard)
         )}
       </div>
     </>
