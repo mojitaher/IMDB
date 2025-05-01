@@ -14,6 +14,7 @@ import axios from "axios";
 import SkeletonLoader from "../components/skeletonLoader";
 import InfinityScroll from "../components/useInfinityScroll";
 import { Button } from "flowbite-react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function Home() {
   const [genresPage, setGenresPage] = useState(1);
@@ -49,9 +50,12 @@ export default function Home() {
     const res = await getMovieByGenres(selectedGener, genresPage);
     const newMovie = res.data.map(formatMovie);
     setGenresList((movie) => [...movie, ...newMovie]);
-    // const totalPage = res.metadata.page_count;
-    // if (genresPage < totalPage) {
-    //   setGenresPage((page) => page + 1);
+    const totalPage = res.metadata.page_count;
+    if (genresPage > totalPage) {
+      setHasMore(false);
+    } else {
+      setGenresPage((page) => page + 1);
+    }
   }
   useEffect(() => {
     getAllMovies();
@@ -144,15 +148,25 @@ export default function Home() {
             </ul>
           </>
         ) : genresList.length > 0 ? (
-          <ul className="mx-32 inline-flex flex-wrap gap-x-6 gap-y-5">
-            {genresList.map((movies, index) => (
-              <div className="max-w-72 " key={`${movies.id}-${index}`}>
-                <Link to={`/Detail/${movies.id}`}>
-                  {!loader ? <MovieCard movie={movies} /> : <SkeletonLoader />}
-                </Link>
-              </div>
-            ))}
-          </ul>
+          <InfiniteScroll
+            dataLength={genresList}
+            next={fetchGetMovieByGenres}
+            hasMore={hasMore}
+          >
+            <ul className="mx-32 inline-flex flex-wrap gap-x-6 gap-y-5">
+              {genresList.map((movies, index) => (
+                <div className="max-w-72 " key={`${movies.id}-${index}`}>
+                  <Link to={`/Detail/${movies.id}`}>
+                    {!loader ? (
+                      <MovieCard movie={movies} />
+                    ) : (
+                      <SkeletonLoader />
+                    )}
+                  </Link>
+                </div>
+              ))}
+            </ul>
+          </InfiniteScroll>
         ) : (
           InfinityScroll(movie, getAllMovies, hasMore, loader, MovieCard)
         )}
