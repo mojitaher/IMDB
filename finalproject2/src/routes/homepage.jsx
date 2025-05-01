@@ -1,4 +1,9 @@
-import { formatMovie, getMovieByName, getGenres } from "../../api/api";
+import {
+  formatMovie,
+  getMovieByName,
+  getGenres,
+  getMovieByGenres,
+} from "../../api/api";
 import MovieCard from "../components/MovieCard";
 import { useState, useEffect } from "react";
 import Searchbar from "../components/SearchBar";
@@ -11,12 +16,15 @@ import InfinityScroll from "../components/useInfinityScroll";
 import { Button } from "flowbite-react";
 
 export default function Home() {
+  const [genresPage, setGenresPage] = useState(1);
   const [page, setPage] = useState(1);
   const [movieList, setMovieList] = useState([]);
   const [movie, setMovie] = useState([]);
   const [loader, setLoader] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [genres, setGenres] = useState([]);
+  const [selectedGener, setSelectedGener] = useState("");
+  const [genresList, setGenresList] = useState([]);
   function handleBack() {
     setMovieList([]);
   }
@@ -29,34 +37,38 @@ export default function Home() {
     const formatMovies = res.data.data.map(formatMovie);
     const totalPages = res.data.metadata.page_count;
     setMovie((movie) => [...movie, ...formatMovies]);
-    if (page >= totalPages) {
+    if (page > totalPages) {
       setHasMore(false);
     } else {
       setPage((page) => page + 1);
     }
     setLoader(false);
   }
+
+  async function fetchGetMovieByGenres() {
+    const res = await getMovieByGenres(selectedGener, genresPage);
+    const newMovie = res.data.map(formatMovie);
+    setGenresList((movie) => [...movie, ...newMovie]);
+    // const totalPage = res.metadata.page_count;
+    // if (genresPage < totalPage) {
+    //   setGenresPage((page) => page + 1);
+  }
   useEffect(() => {
     getAllMovies();
   }, []);
+
   useEffect(() => {
     getGenres().then((genres) => {
-      genres = genres.map((genre) => ({
-        id: genre.id,
-        name: genre.name,
-        movies_count: genre.movies_count,
-        isSelected: false,
-      }));
-
-      genres.unshift({
-        id: -1,
-        name: "All",
-        isSelected: true,
-        movies_count: null,
-      });
       setGenres(genres);
     });
   }, []);
+  useEffect(() => {
+    setGenresPage(1);
+    setGenresList([]);
+  }, [selectedGener]);
+  useEffect(() => {
+    fetchGetMovieByGenres();
+  }, [genresPage, selectedGener]);
   const handelSubmit = (event, movieSearch) => {
     getMovieByName(movieSearch).then((movies) => {
       setMovieList(movies);
@@ -74,31 +86,11 @@ export default function Home() {
 
     return setMovieList(movieResult);
   };
-
-  function onGenreClick(genre) {
-    genre = genre.toLowerCase();
-    if (genre === "all".toLocaleLowerCase()) {
-      setMovie(movieList);
-      setGenres(genres);
-      return;
-    }
-
-    const genresWithSelected = genres.map((eachGenre) => {
-      if (eachGenre.name.toLocaleLowerCase() === genre) {
-        return { ...eachGenre, isSelected: true };
-      } else {
-        return { ...eachGenre, isSelected: false };
-      }
-    });
-
-    const genreFilteredMovies = movieList.filter((movie) =>
-      movie.genres.some((g) => g.toLowerCase() === genre)
-    );
-
-    setMovie(genreFilteredMovies);
-    setGenres(genresWithSelected);
+  function handelAllBtn() {
+    setGenresList([]);
+    setPage(1);
+    console.log(genresList);
   }
-
   return (
     <>
       <Header />
@@ -113,22 +105,26 @@ export default function Home() {
       <div>
         <Searchbar handelSubmit={handelSubmit} />
       </div>
-      {genres
-        .sort((o) => o.name)
-        .map((genre) => (
-          <Tab
-            key={genre.id}
-            props={{
-              text: genre.name,
-              id: genre.name,
-              isSelected: genre.isSelected,
-              onClick: onGenreClick,
-            }}
-          />
-        ))}
+
       <div>
+        <ul className="flex flex-wrap gap-4 p-4">
+          <Button onClick={handelAllBtn}>All</Button>
+          {genres.map((genre) => {
+            return (
+              <>
+                <li key={genre.id}>
+                  <Tab
+                    data={genre}
+                    onGenreClick={() => setSelectedGener(genre.name)}
+                  />
+                </li>
+              </>
+            );
+          })}
+        </ul>
         <h3 className=" mx-32 text-gray-400 font-normal text-3xl leading-10 font-poppin flex items-baseline gap-1">
-          ALL <span className="text-base leading-6">({movie.length})</span>
+          ALL <span className="text-base leading-6">({movie.length})</span>{" "}
+          {/*fix length*/}
         </h3>
         {movieList.length > 0 ? (
           <>
@@ -147,6 +143,16 @@ export default function Home() {
               ))}
             </ul>
           </>
+        ) : genresList.length > 0 ? (
+          <ul className="mx-32 inline-flex flex-wrap gap-x-6 gap-y-5">
+            {genresList.map((movies, index) => (
+              <div className="max-w-72 " key={`${movies.id}-${index}`}>
+                <Link to={`/Detail/${movies.id}`}>
+                  {!loader ? <MovieCard movie={movies} /> : <SkeletonLoader />}
+                </Link>
+              </div>
+            ))}
+          </ul>
         ) : (
           InfinityScroll(movie, getAllMovies, hasMore, loader, MovieCard)
         )}
