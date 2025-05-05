@@ -1,13 +1,14 @@
 export default function BackGround() {
   return (
-    <>
+    <div className="fixed bg-dark-0 px-10 -z-10">
       <svg
-        className="bg-dark-0 fixed top-0 left-0 w-screen h-screen bg-repeat-x -z-10"
+        width="1440"
+        height="3192"
         viewBox="0 0 1440 3192"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <g clip-path="url(#clip0_564_1551)">
+        <g clipPath="url(#clip0_564_1551)">
           <g filter="url(#filter0_f_564_1551)">
             <path
               d="M961.838 1365.63C916.071 1342.82 921.15 1281.38 871.024 1271.28C784.695 1253.88 830.526 1418.62 871.024 1496.84C949.223 1647.87 1351.79 1660.77 1306.45 1496.84C1287.3 1427.61 1259.53 1370.92 1189.53 1354.87C1138.72 1343.23 1111.8 1386.69 1059.67 1385.81C1020.67 1385.16 996.755 1383.03 961.838 1365.63Z"
@@ -65,9 +66,9 @@ export default function BackGround() {
             width="1188"
             height="1045"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feBlend
               mode="normal"
               in="SourceGraphic"
@@ -86,9 +87,9 @@ export default function BackGround() {
             width="1276"
             height="1107"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feBlend
               mode="normal"
               in="SourceGraphic"
@@ -107,9 +108,9 @@ export default function BackGround() {
             width="1040.92"
             height="1040.92"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feBlend
               mode="normal"
               in="SourceGraphic"
@@ -128,9 +129,9 @@ export default function BackGround() {
             width="1102.22"
             height="1102.22"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feBlend
               mode="normal"
               in="SourceGraphic"
@@ -149,9 +150,9 @@ export default function BackGround() {
             width="1040.92"
             height="1040.92"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feBlend
               mode="normal"
               in="SourceGraphic"
@@ -170,9 +171,9 @@ export default function BackGround() {
             width="1188"
             height="1045"
             filterUnits="userSpaceOnUse"
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
           >
-            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feFlood floodOpacity="0" result="BackgroundImageFix" />
             <feBlend
               mode="normal"
               in="SourceGraphic"
@@ -189,6 +190,6 @@ export default function BackGround() {
           </clipPath>
         </defs>
       </svg>
-    </>
+    </div>
   );
 }

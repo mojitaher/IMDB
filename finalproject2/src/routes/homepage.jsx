@@ -15,12 +15,14 @@ import SkeletonLoader from "../components/skeletonLoader";
 import InfinityScroll from "../components/useInfinityScroll";
 import { Button } from "flowbite-react";
 import InfiniteScroll from "react-infinite-scroll-component";
+import BackGround from "../components/Background";
 
 export default function Home() {
   const [genresPage, setGenresPage] = useState(1);
   const [page, setPage] = useState(1);
   const [movieList, setMovieList] = useState([]);
   const [movie, setMovie] = useState([]);
+  const [movieLength, setMovieLength] = useState(1);
   const [loader, setLoader] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [genres, setGenres] = useState([]);
@@ -28,6 +30,10 @@ export default function Home() {
   const [genresList, setGenresList] = useState([]);
   function handleBack() {
     setMovieList([]);
+  }
+  function handelAllBtn() {
+    setGenresList([]);
+    setHasMore(true);
   }
   async function getAllMovies() {
     setLoader(true);
@@ -37,7 +43,10 @@ export default function Home() {
     );
     const formatMovies = res.data.data.map(formatMovie);
     const totalPages = res.data.metadata.page_count;
+    const totalCount = res.data.metadata.total_count;
     setMovie((movie) => [...movie, ...formatMovies]);
+    setMovieLength(totalCount);
+
     if (page > totalPages) {
       setHasMore(false);
     } else {
@@ -48,6 +57,9 @@ export default function Home() {
 
   async function fetchGetMovieByGenres() {
     const res = await getMovieByGenres(selectedGener, genresPage);
+    if (!res) {
+      return;
+    }
     const newMovie = res.data.map(formatMovie);
     setGenresList((movie) => [...movie, ...newMovie]);
     const totalPage = res.metadata.page_count;
@@ -90,13 +102,10 @@ export default function Home() {
 
     return setMovieList(movieResult);
   };
-  function handelAllBtn() {
-    setGenresList([]);
-    setPage(1);
-    console.log(genresList);
-  }
+
   return (
     <>
+      <BackGround />
       <Header />
       <div className="leading-normal gap-16 mx-32 flex-wrap text-white">
         <h1 className="font-black text-4xl mb-6 mt-16">MaileHereko</h1>
@@ -112,27 +121,32 @@ export default function Home() {
 
       <div>
         <ul className="flex flex-wrap gap-4 p-4">
-          <Button onClick={handelAllBtn}>All</Button>
+          <Button onClick={handelAllBtn} disabled={movieList.length > 0}>
+            All
+          </Button>
           {genres.map((genre) => {
             return (
-              <>
-                <li key={genre.id}>
+              <div key={genre.id}>
+                <li>
                   <Tab
                     data={genre}
                     onGenreClick={() => setSelectedGener(genre.name)}
+                    disable={movieList.length > 0}
                   />
                 </li>
-              </>
+              </div>
             );
           })}
         </ul>
-        <h3 className=" mx-32 text-gray-400 font-normal text-3xl leading-10 font-poppin flex items-baseline gap-1">
-          ALL <span className="text-base leading-6">({movie.length})</span>{" "}
-          {/*fix length*/}
+        <h3 className=" mx-32 my-4 text-gray-400 font-normal text-3xl leading-10 font-poppin flex items-baseline gap-1">
+          ALL <span className="text-base leading-6">({movieLength})</span>{" "}
         </h3>
         {movieList.length > 0 ? (
           <>
-            <Button onClick={handleBack}>Back</Button>;
+            <Button onClick={handleBack} className="mx-5">
+              Back
+            </Button>
+            ;
             <ul className="mx-32 inline-flex flex-wrap gap-x-6 gap-y-5">
               {movieList.map((movies) => (
                 <div className="max-w-72 " key={movies.id}>

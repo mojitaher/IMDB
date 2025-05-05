@@ -3,6 +3,7 @@ import getDetailsById from "../../api/detailApi";
 import { useLoaderData } from "react-router-dom";
 
 import Header from "../components/Header";
+import BackGround from "../components/Background";
 
 export async function Loader({ params }) {
   const detail = await getDetailsById(params.id);
@@ -13,10 +14,11 @@ export function DetailsRoot() {
 
   return (
     <>
+      <BackGround />
       <Header />
-      <div className=" max-w-7xl m-auto relative ">
+      <div className=" max-w-7xl m-auto relative h-[480px]">
         <img
-          className="rounded-3xl w-full h-96 "
+          className="rounded-3xl w-full h-full "
           src={detail.images}
           alt={detail.title}
         />
