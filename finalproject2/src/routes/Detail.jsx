@@ -35,9 +35,9 @@ export function DetailsRoot() {
       </div>
 
       <div className="mt-20 flex justify-between gap-20 mx-48 py-10 items-stretch ">
-        <div className="w-1\2">
+        <div className="w-[480px]">
           <img
-            className="rounded-3xl h-3/4 w-full"
+            className="rounded-3xl h-[720px] w-full"
             src={detail.poster}
             alt={detail.title}
           />
@@ -74,7 +74,7 @@ export function DetailsRoot() {
           <div>
             <h3 className="text-gray-400 leading-5  font-normal">Genres</h3>
             <p className="font-normal text-white size-5 leading-8">
-              {detail.genres}
+              {detail.genres.join(",")}
             </p>
           </div>
         </div>

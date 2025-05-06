@@ -1,8 +1,8 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+ساخته شده و برای راه اندازی ابتدایی سایت باید داخل ترمینالvite + react این اپلیکیشن توسط
+را استفاده کنیم و روی لینک کلیک کنید npm run dev
+هست و قابلیت سرچ بین تمام فیلم ها را دارد ومیتوانید با کلیک روی ژانر مورد علاقتون فیلم هایی باimdbاین سایت در باره 250 فیلم برتر
+ژانر مشخص شده را تماشا کنید
+ومیتوانید با کلیک بر روی کارت فیلم مورد نظرتوت به صفحه ان فیلم برید واطلاعات درمورد ان فیلم را مشاهده کنید
+tailwind ,react,vite :ابزار های استفاده شده در سایت از جمله
+در حال حاظر به دلیل استفاده از ریکت ممکنه در اینن نسخه بعضی فیلم ها دوبار نمایش داده شوند ولی در نسخه نهایی این مشکل برطرف شده است
+را کامنت کنیدStrictModeتگmain.jsxمیتوانید برای دیدن نسخه نهایی در فایل
