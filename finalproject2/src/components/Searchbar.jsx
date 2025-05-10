@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { MagnifyIcon } from "./MagnifyIcon";
+import { useTranslation } from "react-i18next";
 
 export default function Searchbar({ handelSubmit }) {
   const [search, setSearch] = useState("");
+  const { t } = useTranslation();
 
   return (
     <>
@@ -29,7 +31,7 @@ export default function Searchbar({ handelSubmit }) {
             type="search"
             id="default-search"
             className="w-full p-5 text-sm text-white border-0 bg-transparent focus:border-0 focus:ring-0 "
-            placeholder="Search Movies or TV Shows"
+            placeholder={t("search")}
             onChange={(e) => {
               setSearch(e.target.value);
             }}

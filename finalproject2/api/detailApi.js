@@ -1,5 +1,5 @@
 import axios from "axios";
-
+const API_URL = import.meta.env.VITE_API_URL;
 //detail page
 //////////////////////////////////////////
 
@@ -33,8 +33,6 @@ export default async function getDetailsById(id) {
   if (!id) {
     return;
   }
-  const res = await axios.get(
-    `https://moviesapi.codingfront.dev/api/v1/movies/${id}`
-  );
+  const res = await axios.get(`${API_URL}/movies/${id}`);
   return formatDetail(res.data);
 }

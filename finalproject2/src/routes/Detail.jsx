@@ -4,6 +4,8 @@ import { useLoaderData } from "react-router-dom";
 
 import Header from "../components/Header";
 import BackGround from "../components/Background";
+import { useTranslation } from "react-i18next";
+import { Button } from "flowbite-react";
 
 export async function Loader({ params }) {
   const detail = await getDetailsById(params.id);
@@ -11,12 +13,24 @@ export async function Loader({ params }) {
 }
 export function DetailsRoot() {
   const { detail } = useLoaderData();
+  const { t, i18n } = useTranslation();
+  function handelLang(lang) {
+    i18n.changeLanguage(lang);
+    if (lang === "fas") document.body.dir = i18n.dir("fa");
+    else {
+      document.body.dir = i18n.dir("en");
+    }
+  }
 
   return (
     <>
       <BackGround />
       <Header />
-      <div className=" max-w-7xl m-auto relative h-[480px]">
+      <div className="flex my-4 p-3 gap-5">
+        <Button onClick={() => handelLang("en")}>english</Button>
+        <Button onClick={() => handelLang("fas")}>فارسی</Button>
+      </div>
+      <div className=" max-w-[1200px] m-auto relative h-[480px]">
         <img
           className="rounded-3xl w-full h-full "
           src={detail.images}
@@ -26,7 +40,8 @@ export function DetailsRoot() {
           <div className="text-primary-0  text-sm px-1 ">
             <span>
               <p>
-                <a href="#">MaileHerek</a> / <a href="#">Movie</a>{" "}
+                <a href="#">{t("movieCenter")}</a> /{" "}
+                <a href="#">{t("movie")}</a>{" "}
               </p>
             </span>
           </div>
@@ -54,25 +69,31 @@ export function DetailsRoot() {
             </Rating>
           </span>
           <div className="my-2">
-            <h3 className="text-gray-400 leading-5  font-normal">type</h3>
+            <h3 className="text-gray-400 leading-5  font-normal">
+              {t("type")}
+            </h3>
             <p className="font-normal text-white size-5 leading-8">
               {detail.type}
             </p>
           </div>
           <div>
             <h3 className="text-gray-400 leading-5  font-normal">
-              Release Date:
+              {t("ReleaseDate")}:
             </h3>
             <p className="font-normal text-white  leading-8">
               {detail.released}
             </p>
           </div>
           <div>
-            <h3 className="text-gray-400 leading-5  font-normal">Run time</h3>
+            <h3 className="text-gray-400 leading-5  font-normal">
+              {t("Runtime")}
+            </h3>
             <p className="font-normal text-white leading-8">{detail.runtime}</p>
           </div>
           <div>
-            <h3 className="text-gray-400 leading-5  font-normal">Genres</h3>
+            <h3 className="text-gray-400 leading-5  font-normal">
+              {t("Genres")}
+            </h3>
             <p className="font-normal text-white size-5 leading-8">
               {detail.genres.join(",")}
             </p>

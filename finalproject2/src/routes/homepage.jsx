@@ -16,6 +16,7 @@ import InfinityScroll from "../components/useInfinityScroll";
 import { Button } from "flowbite-react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import BackGround from "../components/Background";
+import { useTranslation } from "react-i18next";
 
 export default function Home() {
   const [genresPage, setGenresPage] = useState(1);
@@ -102,18 +103,25 @@ export default function Home() {
 
     return setMovieList(movieResult);
   };
-
+  const { t, i18n } = useTranslation();
+  function handelLang(lang) {
+    i18n.changeLanguage(lang);
+    if (lang === "fas") document.body.dir = i18n.dir("fa");
+    else {
+      document.body.dir = i18n.dir("en");
+    }
+  }
   return (
     <>
       <BackGround />
       <Header />
+      <div className="flex px-3 gap-5">
+        <Button onClick={() => handelLang("en")}>english</Button>
+        <Button onClick={() => handelLang("fas")}>فارسی</Button>
+      </div>
       <div className="leading-normal gap-16 mx-32 flex-wrap text-white">
-        <h1 className="font-black text-4xl mb-6 mt-16">MaileHereko</h1>
-        <p className="max-w-42">
-          List of movies and TV Shows, I, Pramod Poudel have watched till date.
-          Explore what I have watched and also feel free to make a suggestion.
-          😉
-        </p>
+        <h1 className="font-black text-4xl mb-6 mt-16">{t("movieCenter")}</h1>
+        <p className="max-w-42">{t("listOfMovie_message")}</p>
       </div>
       <div>
         <Searchbar handelSubmit={handelSubmit} />
@@ -139,7 +147,8 @@ export default function Home() {
           })}
         </ul>
         <h3 className=" mx-32 my-4 text-gray-400 font-normal text-3xl leading-10 font-poppin flex items-baseline gap-1">
-          ALL <span className="text-base leading-6">({movieLength})</span>{" "}
+          {t("all")}{" "}
+          <span className="text-base leading-6">({movieLength})</span>{" "}
         </h3>
         {movieList.length > 0 ? (
           <>

@@ -1,10 +1,12 @@
 import React from "react";
 import Header from "../components/Header";
 import { Link } from "react-router-dom";
+import BackGround from "../components/Background";
 
 export default function Error404() {
   return (
     <>
+      <BackGround />
       <Header />
       <div className="flex justify-center items-center leading-loose my-32">
         <svg
@@ -14,7 +16,7 @@ export default function Error404() {
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <g clip-path="url(#clip0_802_2566)">
+          <g clipPath="url(#clip0_802_2566)">
             <path
               d="M422.556 263.467H-21.8887V263.689H422.556V263.467Z"
               fill="#121829"
