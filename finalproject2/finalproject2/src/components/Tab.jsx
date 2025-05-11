@@ -5,7 +5,9 @@ export default function Tab({ data, onGenreClick, disable }) {
 
   return (
     <Button
-      onClick={() => onGenreClick(name)}
+      onClick={() => {
+        onGenreClick(name);
+      }}
       disabled={disable}
       className="text-white"
     >

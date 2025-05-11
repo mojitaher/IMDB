@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MagnifyIcon } from "./MagnifyIcon";
+import { MagnifyIcon } from "./magnifyIcon";
 import { useTranslation } from "react-i18next";
 
 export default function Searchbar({ handelSubmit }) {

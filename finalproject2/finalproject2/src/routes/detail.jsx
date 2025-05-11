@@ -2,8 +2,8 @@ import { Rating } from "flowbite-react";
 import getDetailsById from "../../api/detailApi";
 import { useLoaderData } from "react-router-dom";
 
-import Header from "../components/Header";
-import BackGround from "../components/Background";
+import Header from "../components/header";
+import BackGround from "../components/background";
 import { useTranslation } from "react-i18next";
 import { Button } from "flowbite-react";
 

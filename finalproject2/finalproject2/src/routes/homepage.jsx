@@ -6,8 +6,8 @@ import {
 } from "../../api/api";
 import MovieCard from "../components/MovieCard";
 import { useState, useEffect } from "react";
-import Searchbar from "../components/SearchBar";
-import Header from "../components/Header";
+import Searchbar from "../components/searchbar";
+import Header from "../components/header";
 import Tab from "../components/Tab";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -15,7 +15,7 @@ import SkeletonLoader from "../components/skeletonLoader";
 import InfinityScroll from "../components/useInfinityScroll";
 import { Button } from "flowbite-react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import BackGround from "../components/Background";
+import BackGround from "../components/background";
 import { useTranslation } from "react-i18next";
 
 export default function Home() {

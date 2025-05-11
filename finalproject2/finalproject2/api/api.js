@@ -30,7 +30,7 @@ export async function getMovieByGenres(genre_name, page) {
     return;
   }
   const res = await axios.get(
-    `${API_URL}genres/${genre_name}/movies?page=${page}`
+    `${API_URL}/genres/${genre_name}/movies?page=${page}`
   );
   return res.data;
 }
