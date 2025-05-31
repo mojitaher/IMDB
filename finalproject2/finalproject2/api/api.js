@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_URL = import.meta.env.VITE_API_URL;
+export const API_URL = "https://moviesapi.codingfront.dev/api/v1";
 export const formatMovie = (movie) => {
   const { id, title, poster, imdb_rating, genres } = movie;
   return {
