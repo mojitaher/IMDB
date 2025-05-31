@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import { DetailsRoot, Loader } from "./Detail";
 
 import Home from "./homepage";
-import Main from "./Main";
+import Main from "./main";
 import Error404 from "./404";
 
 export const router = createBrowserRouter([
