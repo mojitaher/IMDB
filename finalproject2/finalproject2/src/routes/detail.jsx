@@ -30,14 +30,14 @@ export function DetailsRoot() {
         <Button onClick={() => handelLang("en")}>english</Button>
         <Button onClick={() => handelLang("fas")}>فارسی</Button>
       </div>
-      <div className=" max-w-[1200px] m-auto relative h-[480px]">
+      <div className=" max-w-[1200px] m-auto relative h-[480px] sm:w-[400px] md:w-[600px] lg:w-[800px] xl:w-[1200px]">
         <img
           className="rounded-3xl w-full h-full "
           src={detail.images}
           alt={detail.title}
         />
-        <div className="bg-bg_card-0 bg-opacity-80 absolute w-1/2  rounded-xl p-10 -bottom-16 left-28 font-poppin">
-          <div className="text-primary-0  text-sm px-1 ">
+        <div className="bg-bg_card-0 bg-opacity-80 absolute w-1/2  rounded-xl p-10 -bottom-16 left-28 font-poppin sm:h-18 ">
+          <div className="text-primary-0  px-1 sm:text-xs md:text-sm ">
             <span>
               <p>
                 <a href="#">{t("movieCenter")}</a> /{" "}
@@ -45,12 +45,15 @@ export function DetailsRoot() {
               </p>
             </span>
           </div>
-          <h2 className="text-4xl text-white">{detail.title}</h2>
+          {/* text */}
+          <h2 className="sm:text-md md:text-lg lg:text-4xl text-white  ">
+            {detail.title}
+          </h2>
         </div>
       </div>
 
-      <div className="mt-20 flex justify-between gap-20 mx-48 py-10 items-stretch ">
-        <div className="w-[480px]">
+      <div className="mt-20 flex justify-between gap-20 lg:mx-48 py-10 items-stretch sm:w-[500px] sm:mx-10 md:mx-20 lg:w-[800px] xl:w-[1200px] ">
+        <div className="w-[480px]  ">
           <img
             className="rounded-3xl h-[720px] w-full"
             src={detail.poster}
@@ -58,7 +61,7 @@ export function DetailsRoot() {
           />
         </div>
         <div className="inline-flex flex-col gap-6 w-1/2">
-          <h1 className="text-white font-poppin font-bold  ">{detail.title}</h1>
+          <h1 className="text-white font-poppin font-bold">{detail.title}</h1>
           <p className="text-gray-300 font-normal leading-8">{detail.plot}</p>
           <span className="w-16 rounded-lg bg-black">
             <Rating>

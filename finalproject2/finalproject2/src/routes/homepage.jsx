@@ -119,8 +119,8 @@ export default function Home() {
         <Button onClick={() => handelLang("en")}>english</Button>
         <Button onClick={() => handelLang("fas")}>فارسی</Button>
       </div>
-      <div className="leading-normal gap-16 mx-32 flex-wrap text-white">
-        <h1 className="font-black text-4xl mb-6 mt-16">{t("movieCenter")}</h1>
+      <div className="leading-normal gap-16 mx-32 flex-wrap text-white ">
+        <h1 className="font-black text-4xl mb-6 mt-16 ">{t("movieCenter")}</h1>
         <p className="max-w-42">{t("listOfMovie_message")}</p>
       </div>
       <div>

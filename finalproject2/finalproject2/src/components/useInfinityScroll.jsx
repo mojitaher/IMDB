@@ -14,7 +14,7 @@ export default function InfinityScroll(
       next={nextFunction}
       hasMore={hasMore}
     >
-      <ul className="mx-32 inline-flex flex-wrap gap-x-6 gap-y-5">
+      <ul className="mx-32 inline-flex flex-wrap gap-x-6 gap-y-5 ">
         {data.map((movies, index) => (
           <div className="max-w-72 " key={`${movies.id}-${index}`}>
             <Link to={`/Detail/${movies.id}`}>
