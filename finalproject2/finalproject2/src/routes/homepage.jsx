@@ -7,7 +7,7 @@ import {
 import MovieCard from "../components/MovieCard";
 import { useState, useEffect } from "react";
 import Searchbar from "../components/searchbar";
-import Header from "../components/header";
+import { Header } from "../components/header";
 import Tab from "../components/Tab";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -116,9 +116,10 @@ export default function Home() {
       <BackGround />
       <Header />
       <div className="flex px-3 gap-5">
-        <Button onClick={() => handelLang("en")}>english</Button>
-        <Button onClick={() => handelLang("fas")}>فارسی</Button>
+        <Button onClick={() => handelLang("en")}>en</Button>
+        <Button onClick={() => handelLang("fas")}>fa</Button>
       </div>
+
       <div className="leading-normal gap-16 mx-32 flex-wrap text-white ">
         <h1 className="font-black text-4xl mb-6 mt-16 ">{t("movieCenter")}</h1>
         <p className="max-w-42">{t("listOfMovie_message")}</p>

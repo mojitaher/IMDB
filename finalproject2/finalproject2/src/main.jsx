@@ -4,12 +4,15 @@ import "./index.css";
 import "./utility/i18";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./routes";
+import AuthProvider from "../authcontext/auth";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider
-      router={router}
-      future={{ v7_relativeSplatPath: true, v7_startTransition: true }}
-    />
+    <AuthProvider>
+      <RouterProvider
+        router={router}
+        future={{ v7_relativeSplatPath: true, v7_startTransition: true }}
+      />
+    </AuthProvider>
   </StrictMode>
 );

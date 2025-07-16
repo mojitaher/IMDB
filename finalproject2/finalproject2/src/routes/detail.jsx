@@ -2,7 +2,7 @@ import { Rating } from "flowbite-react";
 import getDetailsById from "../../api/detailApi";
 import { useLoaderData } from "react-router-dom";
 
-import Header from "../components/header";
+import { Header } from "../components/header";
 import BackGround from "../components/background";
 import { useTranslation } from "react-i18next";
 import { Button } from "flowbite-react";
@@ -26,9 +26,9 @@ export function DetailsRoot() {
     <>
       <BackGround />
       <Header />
-      <div className="flex my-4 p-3 gap-5">
-        <Button onClick={() => handelLang("en")}>english</Button>
-        <Button onClick={() => handelLang("fas")}>فارسی</Button>
+      <div className="flex my-4 p-3 gap-5 ">
+        <Button onClick={() => handelLang("en")}>en</Button>
+        <Button onClick={() => handelLang("fas")}>fa</Button>
       </div>
       <div className=" max-w-[1200px] m-auto relative h-[480px] sm:w-[400px] md:w-[600px] lg:w-[800px] xl:w-[1200px]">
         <img
