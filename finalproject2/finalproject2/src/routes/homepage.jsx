@@ -29,6 +29,10 @@ export default function Home() {
   const [genres, setGenres] = useState([]);
   const [selectedGener, setSelectedGener] = useState("");
   const [genresList, setGenresList] = useState([]);
+  const [showAll, setShowAll] = useState(false);
+
+  const visibleGenres = showAll ? genres : genres.slice(0, 4);
+
   function handleBack() {
     setMovieList([]);
   }
@@ -133,7 +137,7 @@ export default function Home() {
           <Button onClick={handelAllBtn} disabled={movieList.length > 0}>
             All
           </Button>
-          {genres.map((genre) => {
+          {visibleGenres.map((genre) => {
             return (
               <div key={genre.id}>
                 <li>
@@ -146,6 +150,12 @@ export default function Home() {
               </div>
             );
           })}
+          <Button
+            onClick={() => setShowAll(!showAll)}
+            color={`${showAll ? "failure" : "blue"}`}
+          >
+            {!showAll ? "..." : "x"}
+          </Button>
         </ul>
         <h3 className=" mx-32 my-4 text-gray-400 font-normal text-3xl leading-10 font-poppin flex items-baseline gap-1">
           {t("all")}{" "}
