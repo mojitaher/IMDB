@@ -4,7 +4,7 @@ import {
   getGenres,
   getMovieByGenres,
 } from "../../api/api";
-import MovieCard from "../components/MovieCard";
+import MovieCard from "../components/movieCard";
 import { useState, useEffect } from "react";
 import Searchbar from "../components/searchbar";
 import { Header } from "../components/header";

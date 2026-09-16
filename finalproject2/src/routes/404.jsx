@@ -1,6 +1,6 @@
-import { Header } from "../components/Header";
+import { Header } from "../components/header";
+import BackGround from "../components/background";
 import { Link } from "react-router-dom";
-import BackGround from "../components/Background";
 
 export default function Error404() {
   return (
@@ -592,7 +592,7 @@ export default function Error404() {
       <div className="text-center text-white leading-loose">
         <h1 className="font-bold font text-6xl mb-6">Lost your way?</h1>
         <p className="mb-6 text-gray-300">
-          Oops! This is awkward. You are looking for something that doesn't
+          Oops! This is awkward. You are looking for something that doesnt
           actually exist.
         </p>
         <Link

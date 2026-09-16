@@ -7,6 +7,7 @@ import Logo from "../components/logo";
 import EmailSvg from "../components/emailSvg";
 import PassSvg from "../components/passSvg";
 import { Button } from "flowbite-react";
+import signupImage from "../img/signupimg.png";
 
 export default function Signup() {
   const [name, setName] = useState("");
@@ -36,7 +37,7 @@ export default function Signup() {
           <div className="bg-dark-0 rounded-3xl  w-[300px] h-[500px]"></div>
           <img
             className="absolute top-10 left-0 w-[400px] h-[500px] "
-            src="src\img\signupimg.png"
+            src={signupImage}
             alt="loginimg"
           />
         </div>

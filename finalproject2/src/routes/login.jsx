@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import PassSvg from "../components/passSvg";
 import EmailSvg from "../components/emailSvg";
 import { Button } from "flowbite-react";
+import loginImage from "../img/loginimg.png";
 
 export default function Login() {
   const { login } = useAuth();
@@ -38,7 +39,7 @@ export default function Login() {
           <div className="bg-dark-0 rounded-3xl  w-[300px] h-[500px]"></div>
           <img
             className=" absolute top-8 left-0 "
-            src="src\img\loginimg.png"
+            src={loginImage}
             alt="loginimg"
           />
         </div>
